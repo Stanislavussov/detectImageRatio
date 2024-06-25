@@ -7,16 +7,18 @@
 </head>
 <body>
     <h1>Image Size and Ratio Detector</h1>
-    <form id="image-form">
-        <label for="image-url">Enter Image URL:</label>
-        <input type="text" id="image-url" placeholder="Paste image URL here">
-        <button type="submit">Get Image Info</button>
-    </form>
-    <form id="image-form-multi">
-        <label for="image-url-multi">Enter Image URLs separated by new line:</label>
-        <textarea id="image-url-multi" placeholder="Paste image URLs separated by new line"></textarea>
-        <button type="submit">Get Images Info</button>
-    </form>
+    <div style="display: flex; flex-direction: column; justify-content: center; gap: 30px;">
+        <form id="image-form">
+            <div><label for="image-url"><b>Enter Image URL:</b></label></div>
+            <input type="text" id="image-url" placeholder="Paste image URL here">
+            <div><button type="submit">Get Image Info</button></div>
+        </form>
+        <form id="image-form-multi">
+            <div><label for="image-url-multi"><b>Enter Image URLs separated by new line:</b></label></div>
+            <textarea id="image-url-multi" placeholder="Paste image URLs separated by new line" rows="10" cols="100"></textarea>
+            <div><button type="submit">Get Images Info</button></div>
+        </form>
+    </div>
     <div id="output"></div>
 
     <script src="script.js"></script>
