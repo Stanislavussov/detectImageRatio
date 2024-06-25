@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("image-form");
+    const formMulti = document.getElementById("image-form-multi");
     const imageUrlInput = document.getElementById("image-url");
-    const img = document.getElementById("image");
+    const imageUrlInputMulti = document.getElementById("image-url-multi");
     const output = document.getElementById("output");
 
     form.addEventListener("submit", (event) => {
@@ -9,28 +10,51 @@ document.addEventListener("DOMContentLoaded", () => {
         const imageUrl = imageUrlInput.value.trim();
 
         if (imageUrl) {
-            img.src = imageUrl;
-            img.style.display = "none";
             output.innerHTML = "Loading image...";
+            loadImageInfo(imageUrl, output);
         } else {
             output.innerHTML = "Please enter a valid image URL.";
         }
     });
 
-    img.onload = () => {
-        const width = img.width;
-        const height = img.height;
-        const ratio = (width / height);
+    formMulti.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const imageUrls = imageUrlInputMulti.value.trim().split('\n').map(url => url.trim());
 
-        output.innerHTML = `
-            <p>Width: ${width}px</p>
-            <p>Height: ${height}px</p>
-            <p>Aspect Ratio: ${ratio}</p>
-        `;
-        img.style.display = "block";
-    };
+        if (imageUrls.length > 0) {
+            output.innerHTML = "Loading images...";
+            output.innerHTML = ''; // Clear previous output
+            imageUrls.forEach(url => {
+                loadImageInfo(url, output);
+            });
+        } else {
+            output.innerHTML = "Please enter valid image URLs.";
+        }
+    });
 
-    img.onerror = () => {
-        output.innerHTML = `<p>Failed to load image. Please check the URL and try again.</p>`;
-    };
+    function loadImageInfo(url, outputElement) {
+        const img = new Image();
+        img.src = url;
+
+        img.onload = () => {
+            const width = img.width;
+            const height = img.height;
+            const ratio = (width / height).toFixed(4);
+
+            outputElement.innerHTML += `
+                <div>
+                    <p>URL: ${url}</p>
+                    <p>Width: ${width}px</p>
+                    <p>Height: ${height}px</p>
+                    <p>Aspect Ratio: ${ratio}</p>
+                    <img src="${url}" alt="Image" display: block;">
+                </div>
+                <hr />
+            `;
+        };
+
+        img.onerror = () => {
+            outputElement.innerHTML += `<p>Failed to load image from URL: ${url}. Please check the URL and try again.</p>`;
+        };
+    }
 });

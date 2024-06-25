@@ -12,7 +12,11 @@
         <input type="text" id="image-url" placeholder="Paste image URL here">
         <button type="submit">Get Image Info</button>
     </form>
-    <img id="image" alt="Image" style="display:none;">
+    <form id="image-form-multi">
+        <label for="image-url-multi">Enter Image URLs separated by new line:</label>
+        <textarea id="image-url-multi" placeholder="Paste image URLs separated by new line"></textarea>
+        <button type="submit">Get Images Info</button>
+    </form>
     <div id="output"></div>
 
     <script src="script.js"></script>
